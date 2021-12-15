@@ -77,25 +77,9 @@ Parameters: no parameters
 Returns: 2D list of ints
 '''
 def createShip():
-    import random
-    row = random.randint(1,8)
-    col = random.randint(1,8)
-    hv = random.randint(0,1)
-    if hv==0:
-      p=row-1
-      randomValue=col
-    else:
-      p=col-1
-      randomValue=row
-    d1=[[randomValue for j in range(1)] for i in range(3)]
-
-    for i in range(len(d1)):
-      d2=d1[i]
- 
-      d2.insert(hv,p)
-      p=p+1
     
-    return d1
+    
+    return
 
 
 '''
@@ -104,16 +88,8 @@ Parameters: 2D list of ints ; 2D list of ints
 Returns: bool
 '''
 def checkShip(grid, ship):
-    count=0
-    for i in range(3):
-        row=ship[i][0]
-        col=ship[i][1]
-        if grid[row][col]==1:
-           count=count+1
-    if count==3:
-        return True
-    else:
-       return False
+    
+       return
 
 '''
 addShips(grid, numShips)
@@ -121,18 +97,8 @@ Parameters: 2D list of ints ; int
 Returns: 2D list of ints
 '''
 def addShips(grid, numShips):
-    count=0
-    for j in range(numShips):
-        ship = createShip()  
-        check =checkShip(grid,ship)
-        if check == True:
-            for i in range(3):
-             row=ship[i][0]
-             col=ship[i][1]
-             grid[row][col]=2
-             count=count+1
-            
-    return grid
+    
+    return 
 
 '''
 drawGrid(data, canvas, grid, showShips)
@@ -311,5 +277,6 @@ def runSimulation(w, h):
 # This code runs the test cases to check your work
 if __name__ == "__main__":
     test.testEmptyGrid()
+
     ## Finally, run the simulation to test it manually ##
     # runSimulation(500, 500)
