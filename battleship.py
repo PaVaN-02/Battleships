@@ -80,8 +80,16 @@ Parameters: 2D list of ints ; 2D list of ints
 Returns: bool
 '''
 def checkShip(grid, ship):
-    return
-
+    count=0
+    for i in range(3):
+        row=ship[i][0]
+        col=ship[i][1]
+        if grid[row][col]==1:
+           count=count+1
+    if count==3:
+        return True
+    else:
+       return False
 
 '''
 addShips(grid, numShips)
@@ -268,6 +276,7 @@ def runSimulation(w, h):
 
 # This code runs the test cases to check your work
 if __name__ == "__main__":
+    test.testCheckShip()
 
     ## Finally, run the simulation to test it manually ##
     # runSimulation(500, 500)
