@@ -66,7 +66,7 @@ def emptyGrid(rows, cols):
     for i in range(rows):
         col=[]
         for j in range(cols):
-            col.append(col)
+            col.append(EMPTY_UNCLICKED)
             row.append(col)
         return row
         
