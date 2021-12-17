@@ -62,8 +62,14 @@ Parameters: int ; int
 Returns: 2D list of ints
 '''
 def emptyGrid(rows, cols):
-    
-    return 
+    row=[]
+    for i in range(rows):
+        col=[]
+        for j in range(cols):
+            col.append(col)
+            row.append(col)
+        return row
+        
 
 '''
 createShip()
