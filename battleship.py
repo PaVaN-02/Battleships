@@ -51,7 +51,17 @@ Parameters: dict mapping strs to values ; Tkinter canvas ; Tkinter canvas
 Returns: None
 '''
 def makeView(data, userCanvas, compCanvas):
-    return
+    grid= test.testGrid()
+    showShips = True
+    for a in range(SHIP_UNCLICKED):
+       if a==0:
+          board=data["userboard"]
+          canvas=userCanvas
+       else:
+          board=data["compboard"]
+          canvas=compCanvas
+
+       drawGrid(data, canvas, grid, showShips)
 
 
 '''
@@ -125,7 +135,7 @@ def checkShip(grid, ship):
     for i in range(3):
         row=ship[i][0]
         col=ship[i][1]
-        if grid[row][col]==EMPTY_CLICKED:
+        if grid[row][col]==EMPTY_UNCLICKED:
            count=count+1
     if count==3:
         return True
@@ -157,7 +167,13 @@ Parameters: dict mapping strs to values ; Tkinter canvas ; 2D list of ints ; boo
 Returns: None
 '''
 def drawGrid(data, canvas, grid, showShips):
-    return
+    for i in range(data["rows"]):
+        for j in range(data["cols"]):
+            if grid[i][j]==SHIP_UNCLICKED:
+               canvas.create_rectangle(j*data["cols"]*data["cell_size"], i*data["rows"]*data["cell_size"], (j+1)*data["cols"]*data["cell_size"], (i+1)*data["rows"]*data["cell_size"],fill="yellow")
+            else:
+               canvas.create_rectangle(j*data["cols"]*data["cell_size"], i*data["rows"]*data["cell_size"], (j+1)*data["cols"]*data["cell_size"], (i+1)*data["rows"]*data["cell_size"],fill="blue")
+    canvas.pack()           
 
 
 ### WEEK 2 ###
@@ -327,7 +343,13 @@ def runSimulation(w, h):
 
 # This code runs the test cases to check your work
 if __name__ == "__main__":
+    test.testEmptyGrid()
+    test.testCreateShip()
+    test.testCheckShip()
+    test.testAddShips()
     test.testMakeModel()
+    test.testDrawGrid()
+    test.testGrid()
 
     ## Finally, run the simulation to test it manually ##
-    # runSimulation(500, 500)
+    runSimulation(500, 500)
