@@ -28,7 +28,7 @@ def makeModel(data):
     data["rows"]=10
     data["cols"]=10
     data["board_size"]=500
-    data["cell_size"]= 5
+    data["cell_size"]=(int)(data["board_size"]/(data["rows"]*data["cols"]))
     data["num_ships"]= 5
 
     for i in range(2):
@@ -51,17 +51,7 @@ Parameters: dict mapping strs to values ; Tkinter canvas ; Tkinter canvas
 Returns: None
 '''
 def makeView(data, userCanvas, compCanvas):
-    grid= test.testGrid()
-    showShips = True
-    for a in range(SHIP_UNCLICKED):
-       if a==0:
-          board=data["userboard"]
-          canvas=userCanvas
-       else:
-          board=data["compboard"]
-          canvas=compCanvas
-      
-       drawGrid(data, canvas, grid, showShips)
+    return
 
 
 '''
@@ -95,6 +85,7 @@ def emptyGrid(rows, cols):
         for j in range(cols):
             col.append(EMPTY_UNCLICKED)
         row.append(col)    
+
     return row
 
 '''
@@ -134,9 +125,9 @@ def checkShip(grid, ship):
     for i in range(3):
         row=ship[i][0]
         col=ship[i][1]
-        if grid[row][col]==EMPTY_UNCLICKED:
+        if grid[row][col]==EMPTY_CLICKED:
            count=count+1
-    if count==EMPTY_CLICKED:
+    if count==3:
         return True
     else:
        return False
@@ -157,8 +148,8 @@ def addShips(grid, numShips):
              col=ship[i][1]
              grid[row][col]=SHIP_UNCLICKED
              count=count+1
+            
     return grid
-
 
 '''
 drawGrid(data, canvas, grid, showShips)
@@ -166,13 +157,7 @@ Parameters: dict mapping strs to values ; Tkinter canvas ; 2D list of ints ; boo
 Returns: None
 '''
 def drawGrid(data, canvas, grid, showShips):
-    for i in range(data["rows"]):
-        for j in range(data["cols"]):
-            if grid[i][j]==SHIP_UNCLICKED:
-               canvas.create_rectangle(j*50, i*50, (j+1)*50, (i+1)*50,fill="yellow")
-            else:
-               canvas.create_rectangle(j*50, i*50, (j+1)*50, (i+1)*50,fill="blue")    
-    canvas.pack()
+    return
 
 
 ### WEEK 2 ###
@@ -342,13 +327,7 @@ def runSimulation(w, h):
 
 # This code runs the test cases to check your work
 if __name__ == "__main__":
-    test.testEmptyGrid()
-    test.testCreateShip()
-    test.testCheckShip()
-    test.testAddShips()
     test.testMakeModel()
-    test.testDrawGrid()
-    test.testGrid()
 
     ## Finally, run the simulation to test it manually ##
-    runSimulation(500, 500)
+    # runSimulation(500, 500)
