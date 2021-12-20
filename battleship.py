@@ -25,25 +25,7 @@ Parameters: dict mapping strs to values
 Returns: None
 '''
 def makeModel(data):
-    data["rows"]=10
-    data["cols"]=10
-    data["board_size"]=500
-    data["cell_size"]= 5
-    data["num_ships"]= 5
-
-    for i in range (2):
-        grid=emptyGrid(10, 10)
-        for j in range(5):
-           ship=createShip()
-           check=checkShip(grid,ship)
-           if check==True:
-              addShips(grid,1)
-        if i==0:
-            data["board1"]=grid
-        else:
-            data["board2"]=grid        
-    
-    return data
+    return
 
 '''
 makeView(data, userCanvas, compCanvas)
