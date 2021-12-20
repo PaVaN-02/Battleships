@@ -28,7 +28,7 @@ def makeModel(data):
     data["rows"]=10
     data["cols"]=10
     data["board_size"]=500
-    data["cell_size"]= 5
+    data["cell_size"]=(int)(data["board_size"]/(data["rows"]*data["cols"]))
     data["num_ships"]= 5
 
     for i in range (2):
