@@ -123,17 +123,17 @@ Returns: 2D list of ints
 '''
 def addShips(grid, numShips):
     count=0
-    for j in range(numShips):
+    while count < numShips:
         ship = createShip()  
         check =checkShip(grid,ship)
-        if check == True:
-            for i in range(3):
-             row=ship[i][0]
-             col=ship[i][1]
-             grid[row][col]=SHIP_UNCLICKED
-             count=count+1
-            
+        if check :
+            for i in ship:
+               row=i[0]
+               col=i[1]
+               grid[row][col]=SHIP_UNCLICKED
+            count=count+1   
     return grid
+
 
 
 '''
