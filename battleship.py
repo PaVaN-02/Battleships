@@ -31,7 +31,7 @@ def makeModel(data):
     data["cell_size"]=(int)(data["board_size"]/(data["rows"]*data["cols"]))
     data["num_ships"]= 5
     data["tempShip"]=[]
-    data["userships"]=0
+    data["userShips"]=0
     temp=emptyGrid(data["rows"],data["cols"])
     data["userboard"]=emptyGrid(data["rows"], data["cols"])
     data["compboard"]=addShips(temp,data["num_ships"])
@@ -256,7 +256,8 @@ drawShip(data, canvas, ship)
 Parameters: dict mapping strs to values ; Tkinter canvas; 2D list of ints
 Returns: None
 '''
-def drawShip(data, canvas, ship):     
+def drawShip(data, canvas, ship):
+    print(ship)     
     for i in range(len(ship)):
         x=ship[i][0]
         y=ship[i][1]
@@ -433,15 +434,15 @@ def runSimulation(w, h):
 
 # This code runs the test cases to check your work
 if __name__ == "__main__":
-    test.testEmptyGrid()
-    test.testCreateShip()
-    test.testCheckShip()
-    test.testAddShips()
-    test.testMakeModel()
-    test.testDrawGrid()
-    test.testIsVertical()
-    test.testIsHorizontal()
-    test.testGetClickedCell()
+    # test.testEmptyGrid()
+    # test.testCreateShip()
+    # test.testCheckShip()
+    # test.testAddShips()
+    # test.testMakeModel()
+    # test.testDrawGrid()
+    # test.testIsVertical()
+    # test.testIsHorizontal()
+    # test.testGetClickedCell()
     test.testShipIsValid()
 
 
