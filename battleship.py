@@ -30,9 +30,9 @@ def makeModel(data):
     data["board_size"]=500
     data["cell_size"]=(int)(data["board_size"]/(data["rows"]*data["cols"]))
     data["num_ships"]= 5
-    grid=emptyGrid(data["rows"],data["cols"])
+    data["compboard"]=emptyGrid(data["rows"],data["cols"])
     data["userboard"]=test.testGrid()
-    data["compboard"]=addShips(grid,data["num_ships"])
+    data["compboard"]=addShips(data["compboard"],data["num_ships"])
     
     return data
 
@@ -42,9 +42,8 @@ Parameters: dict mapping strs to values ; Tkinter canvas ; Tkinter canvas
 Returns: None
 '''
 def makeView(data, userCanvas, compCanvas):
-    showShips = True
-    drawGrid(data, compCanvas,data["compboard"] , showShips)
-    drawGrid(data, userCanvas,data["userboard"], showShips)
+    drawGrid(data, compCanvas,data["compboard"] ,True)
+    drawGrid(data, userCanvas,data["userboard"], True)
 
 
 '''
@@ -152,14 +151,18 @@ Parameters: dict mapping strs to values ; Tkinter canvas ; 2D list of ints ; boo
 Returns: None
 '''
 def drawGrid(data, canvas, grid, showShips):
-    if (showShips == True):
+    
         for i in range(data["rows"]):
             for j in range(data["cols"]):
                if grid[i][j]==SHIP_UNCLICKED:
-                  canvas.create_rectangle(j*data["cols"]*data["cell_size"], i*data["rows"]*data["cell_size"], (j+1)*data["cols"]*data["cell_size"], (i+1)*data["rows"]*data["cell_size"],fill="yellow")
+                   if showShips :
+                      canvas.create_rectangle(j*data["cols"]*data["cell_size"], i*data["rows"]*data["cell_size"], (j+1)*data["cols"]*data["cell_size"], (i+1)*data["rows"]*data["cell_size"],fill="yellow")
+                   else:
+                      canvas.create_rectangle(j*data["cols"]*data["cell_size"], i*data["rows"]*data["cell_size"], (j+1)*data["cols"]*data["cell_size"], (i+1)*data["rows"]*data["cell_size"],fill="blue") 
                else:
                   canvas.create_rectangle(j*data["cols"]*data["cell_size"], i*data["rows"]*data["cell_size"], (j+1)*data["cols"]*data["cell_size"], (i+1)*data["rows"]*data["cell_size"],fill="blue")
-    canvas.pack()    
+    
+        canvas.pack()    
 
 ### WEEK 2 ###
 
