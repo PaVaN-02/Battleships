@@ -32,9 +32,9 @@ def makeModel(data):
     data["num_ships"]= 5
     data["tempShip"]=[]
     data["userShips"]=0
-    temp=emptyGrid(data["rows"],data["cols"])
+    data["compboard"]=emptyGrid(data["rows"],data["cols"])
     data["userboard"]=emptyGrid(data["rows"], data["cols"])
-    data["compboard"]=addShips(temp,data["num_ships"])
+    data["compboard"]=addShips(data["compboard"],data["num_ships"])
     return data
 
 '''
@@ -434,15 +434,15 @@ def runSimulation(w, h):
 
 # This code runs the test cases to check your work
 if __name__ == "__main__":
-    # test.testEmptyGrid()
-    # test.testCreateShip()
-    # test.testCheckShip()
-    # test.testAddShips()
-    # test.testMakeModel()
-    # test.testDrawGrid()
-    # test.testIsVertical()
-    # test.testIsHorizontal()
-    # test.testGetClickedCell()
+    test.testEmptyGrid()
+    test.testCreateShip()
+    test.testCheckShip()
+    test.testAddShips()
+    test.testMakeModel()
+    test.testDrawGrid()
+    test.testIsVertical()
+    test.testIsHorizontal()
+    test.testGetClickedCell()
     test.testShipIsValid()
 
 
