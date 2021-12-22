@@ -30,11 +30,11 @@ def makeModel(data):
     data["board_size"]=500
     data["cell_size"]=(int)(data["board_size"]/(data["rows"]*data["cols"]))
     data["num_ships"]= 5
-    data["tempShip"]=test.testShip()
+    data["tempShip"]=[]
     data["userships"]=0
-    data["compboard"]=emptyGrid(data["rows"],data["cols"])
+    temp=emptyGrid(data["rows"],data["cols"])
     data["userboard"]=emptyGrid(data["rows"], data["cols"])
-    data["compboard"]=addShips(data["compboard"],data["num_ships"])
+    data["compboard"]=addShips(temp,data["num_ships"])
     return data
 
 '''
@@ -46,6 +46,7 @@ def makeView(data, userCanvas, compCanvas):
     drawGrid(data, compCanvas,data["compboard"] ,True)
     drawGrid(data, userCanvas,data["userboard"], True)
     drawShip(data, userCanvas, data["tempShip"])
+    return None
 
 '''
 keyPressed(data, events)
@@ -62,7 +63,11 @@ Parameters: dict mapping strs to values ; mouse event object ; 2D list of ints
 Returns: None
 '''
 def mousePressed(data, event, board):
-    pass
+    rc = getClickedCell(data, event)
+    row= rc[1]*data["cols"]*data["cell_size"]
+    col=rc[0]*data["rows"]*data["cell_size"]
+    if(board=="user"):
+        clickUserBoard(data, row, col)
 
 #### WEEK 1 ####
 
@@ -251,13 +256,12 @@ drawShip(data, canvas, ship)
 Parameters: dict mapping strs to values ; Tkinter canvas; 2D list of ints
 Returns: None
 '''
-def drawShip(data, canvas, ship):
-    print(ship)      
+def drawShip(data, canvas, ship):     
     for i in range(len(ship)):
         x=ship[i][0]
         y=ship[i][1]
         canvas.create_rectangle(y*data["cols"]*data["cell_size"], x*data["rows"]*data["cell_size"], (y+1)*data["cols"]*data["cell_size"], (x+1)*data["rows"]*data["cell_size"],fill="white")
-    return
+    return None
 
 
 '''
