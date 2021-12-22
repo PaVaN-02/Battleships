@@ -43,7 +43,7 @@ Parameters: dict mapping strs to values ; Tkinter canvas ; Tkinter canvas
 Returns: None
 '''
 def makeView(data, userCanvas, compCanvas):
-    drawGrid(data, compCanvas,data["compboard"] ,True)
+    drawGrid(data, compCanvas,data["compboard"] ,False)
     drawGrid(data, userCanvas,data["userboard"], True)
     drawShip(data, userCanvas, data["tempShip"])
     return None
@@ -68,6 +68,8 @@ def mousePressed(data, event, board):
     col=rc[0]*data["rows"]*data["cell_size"]
     if(board=="user"):
         clickUserBoard(data, row, col)
+    else:
+        runGameTurn(data, row, col)
 
 #### WEEK 1 ####
 
@@ -157,14 +159,24 @@ Parameters: dict mapping strs to values ; Tkinter canvas ; 2D list of ints ; boo
 Returns: None
 '''
 def drawGrid(data, canvas, grid, showShips):
-    
         for i in range(data["rows"]):
             for j in range(data["cols"]):
                if grid[i][j]==SHIP_UNCLICKED:
                    if showShips :
                       canvas.create_rectangle(j*data["cols"]*data["cell_size"], i*data["rows"]*data["cell_size"], (j+1)*data["cols"]*data["cell_size"], (i+1)*data["rows"]*data["cell_size"],fill="yellow")
                    else:
-                      canvas.create_rectangle(j*data["cols"]*data["cell_size"], i*data["rows"]*data["cell_size"], (j+1)*data["cols"]*data["cell_size"], (i+1)*data["rows"]*data["cell_size"],fill="blue") 
+                      canvas.create_rectangle(j*data["cols"]*data["cell_size"], i*data["rows"]*data["cell_size"], (j+1)*data["cols"]*data["cell_size"], (i+1)*data["rows"]*data["cell_size"],fill="blue")
+               elif (grid[i][j]==SHIP_CLICKED):
+                    if(showShips):
+                      canvas.create_rectangle(j*data["cols"]*data["cell_size"], i*data["rows"]*data["cell_size"], (j+1)*data["cols"]*data["cell_size"], (i+1)*data["rows"]*data["cell_size"],fill="red")
+                    else:
+                        canvas.create_rectangle(j*data["cols"]*data["cell_size"], i*data["rows"]*data["cell_size"], (j+1)*data["cols"]*data["cell_size"], (i+1)*data["rows"]*data["cell_size"],fill="blue")
+               elif (grid[i][j]==EMPTY_CLICKED):
+                   if(showShips):
+                      canvas.create_rectangle(j*data["cols"]*data["cell_size"], i*data["rows"]*data["cell_size"], (j+1)*data["cols"]*data["cell_size"], (i+1)*data["rows"]*data["cell_size"],fill="white")
+                   else:
+                       canvas.create_rectangle(j*data["cols"]*data["cell_size"], i*data["rows"]*data["cell_size"], (j+1)*data["cols"]*data["cell_size"], (i+1)*data["rows"]*data["cell_size"],fill="blue")    
+
                else:
                   canvas.create_rectangle(j*data["cols"]*data["cell_size"], i*data["rows"]*data["cell_size"], (j+1)*data["cols"]*data["cell_size"], (i+1)*data["rows"]*data["cell_size"],fill="blue")
     
@@ -340,7 +352,12 @@ Parameters: dict mapping strs to values ; 2D list of ints ; int ; int ; str
 Returns: None
 '''
 def updateBoard(data, board, row, col, player):
-    return
+    if (board[row][col]==SHIP_UNCLICKED):
+        board[row][col]=SHIP_CLICKED
+    else:    
+   
+        board[row][col]=EMPTY_CLICKED
+    return None
 
 
 '''
@@ -349,7 +366,11 @@ Parameters: dict mapping strs to values ; int ; int
 Returns: None
 '''
 def runGameTurn(data, row, col):
-    return
+    if (data["compboard"][row][col] == SHIP_CLICKED|EMPTY_CLICKED):
+      return  None
+    else:
+        updateBoard(data, "compboard", row, col, "user")
+    return None
 
 
 '''
@@ -444,6 +465,7 @@ if __name__ == "__main__":
     test.testIsHorizontal()
     test.testGetClickedCell()
     test.testShipIsValid()
+    test.testUpdateBoard()
 
 
     ## Finally, run the simulation to test it manually ##
