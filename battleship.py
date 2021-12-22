@@ -33,7 +33,7 @@ def makeModel(data):
     data["compboard"]=emptyGrid(data["rows"],data["cols"])
     data["userboard"]=test.testGrid()
     data["compboard"]=addShips(data["compboard"],data["num_ships"])
-    
+    data["tempShip"]=test.testShip()
     return data
 
 '''
@@ -44,6 +44,7 @@ Returns: None
 def makeView(data, userCanvas, compCanvas):
     drawGrid(data, compCanvas,data["compboard"] ,True)
     drawGrid(data, userCanvas,data["userboard"], True)
+    drawShip(data, userCanvas,data["tempShip"])
 
 
 '''
@@ -251,8 +252,12 @@ Parameters: dict mapping strs to values ; Tkinter canvas; 2D list of ints
 Returns: None
 '''
 def drawShip(data, canvas, ship):
-    return
-
+    print(ship)      
+    for i in range(len(ship)):
+        x=ship[i][0]
+        y=ship[i][1]
+        canvas.create_rectangle(y*data["cols"]*data["cell_size"], x*data["rows"]*data["cell_size"], (y+1)*data["cols"]*data["cell_size"], (x+1)*data["rows"]*data["cell_size"],fill="white")
+    return None
 
 '''
 shipIsValid(grid, ship)
@@ -385,6 +390,8 @@ def runSimulation(w, h):
 if __name__ == "__main__":
     test.testIsVertical()
     test.testIsHorizontal()
+    test.testGetClickedCell()
+    test.testDrawShip()
 
 
     ## Finally, run the simulation to test it manually ##
