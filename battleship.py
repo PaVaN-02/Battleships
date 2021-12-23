@@ -336,7 +336,7 @@ def clickUserBoard(data, row, col):
         placeShip(data)
     if(data["userShips"]==5):
         print("you can start the game")
-        data.update({data["userShips"]:0})
+        data["userShips"]=0
     return None
 
 
@@ -367,7 +367,7 @@ def runGameTurn(data, row, col):
       return  None
     else:
         updateBoard(data, data["compboard"], row, col, "user")
-    [r,c]=getComputerGuess(data["compboard"])
+    [r,c]=getComputerGuess(data["userboard"])
     updateBoard(data, data["userboard"], r, c, "comp")
     data["currentturns"]=data["currentturns"]+1
     if (data["currentturns"]==data["maxturns"]):
@@ -379,11 +379,11 @@ Parameters: 2D list of ints
 Returns: list of ints
 '''
 def getComputerGuess(board):
-    randomrowvalue = random.randint(1,8)
-    randomcolvalue = random.randint(1,8)
+    randomrowvalue = random.randint(0,9)
+    randomcolvalue = random.randint(0,9)
     while ((board[randomrowvalue][randomcolvalue] == SHIP_CLICKED) or (board[randomrowvalue][randomcolvalue]==EMPTY_CLICKED)):
-        randomrowvalue = random.randint(1,8)
-        randomcolvalue = random.randint(1,8)  
+        randomrowvalue = random.randint(0,9)
+        randomcolvalue = random.randint(0,9)  
     return [randomrowvalue,randomcolvalue]
 
 
@@ -405,12 +405,12 @@ Returns: None
 '''
 def drawGameOver(data, canvas):
     if (data["winner"]=="user"):
-        canvas.create_text(300, 50, text="Congratulations", fill="black", font=('Helvetica 15 bold'))
+        canvas.create_text(300, 50, text="CONGRATULATIONS", fill="black", font=('italic 15 bold'))
  
     if (data["winner"]=="comp"):
-        canvas.create_text(300, 50, text=" YOU LOSE ", fill="black", font=('Helvetica 15 bold'))
+        canvas.create_text(300, 50, text=" YOU LOSE ", fill="black", font=('italic 15 bold'))
     if (data["winner"]=="Draw"):
-        canvas.create_text(300, 50, text=" OUT OF MOVES", fill="black", font=('Helvetica 15 bold'))  
+        canvas.create_text(300, 50, text=" OUT OF MOVES", fill="black", font=('italic 15 bold'))  
     canvas.pack()
     return None
 
