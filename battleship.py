@@ -33,7 +33,7 @@ def makeModel(data):
     data["tempShip"]=[]
     data["userShips"]=0
     data["winner"]=None
-    data["maxturns"]=50
+    data["maxturns"]=100
     data["currentturns"]=0
     data["compboard"]=emptyGrid(data["rows"],data["cols"])
     data["userboard"]=emptyGrid(data["rows"], data["cols"])
@@ -59,7 +59,10 @@ Parameters: dict mapping strs to values ; key event object
 Returns: None
 '''
 def keyPressed(data, event):
-    pass
+     if  event.keysym == 'Return':
+ 
+        makeModel(data)
+        return False 
 
 
 '''
@@ -405,12 +408,14 @@ Returns: None
 '''
 def drawGameOver(data, canvas):
     if (data["winner"]=="user"):
-        canvas.create_text(300, 50, text="Congratulations", fill="black", font=('Helvetica 15 bold'))
- 
+        canvas.create_text(250, 150, text="Congratulations", fill="black", font=('Helvetica 15 bold'))
+        canvas.create_text(250, 250, text="PRESS ENTER IF U WANT TO GAME", fill="gold", font=('Helvetica 15 bold'))
     if (data["winner"]=="comp"):
-        canvas.create_text(300, 50, text=" YOU LOSE ", fill="black", font=('Helvetica 15 bold'))
+        canvas.create_text(250, 150, text=" YOU LOSE ", fill="black", font=('Helvetica 15 bold'))
+        canvas.create_text(250, 250, text="PRESS ENTER IF U WANT TO GAME", fill="gold", font=('Helvetica 15 bold'))
     if (data["winner"]=="Draw"):
-        canvas.create_text(300, 50, text=" OUT OF MOVES", fill="black", font=('Helvetica 15 bold'))  
+        canvas.create_text(250, 150, text=" OUT OF MOVES", fill="black", font=('Helvetica 15 bold'))
+        canvas.create_text(250, 250, text="PRESS ENTER IF U WANT TO GAME", fill="gold", font=('Helvetica 15 bold')) 
     canvas.pack()
     return None
 
