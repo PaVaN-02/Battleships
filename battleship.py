@@ -33,6 +33,8 @@ def makeModel(data):
     data["tempShip"]=[]
     data["userShips"]=0
     data["winner"]=None
+    data["maxturns"]=50
+    data["currentturns"]=0
     data["compboard"]=emptyGrid(data["rows"],data["cols"])
     data["userboard"]=emptyGrid(data["rows"], data["cols"])
     data["compboard"]=addShips(data["compboard"],data["num_ships"])
@@ -367,7 +369,9 @@ def runGameTurn(data, row, col):
         updateBoard(data, data["compboard"], row, col, "user")
     [r,c]=getComputerGuess(data["compboard"])
     updateBoard(data, data["userboard"], r, c, "comp")
-
+    data["currentturns"]=data["currentturns"]+1
+    if (data["currentturns"]==data["maxturns"]):
+        data["winner"]="Draw"
 
 '''
 getComputerGuess(board)
@@ -404,7 +408,9 @@ def drawGameOver(data, canvas):
         canvas.create_text(300, 50, text="Congratulations", fill="black", font=('Helvetica 15 bold'))
  
     if (data["winner"]=="comp"):
-        canvas.create_text(300, 50, text=" YOU LOSE ", fill="black", font=('Helvetica 15 bold'))  
+        canvas.create_text(300, 50, text=" YOU LOSE ", fill="black", font=('Helvetica 15 bold'))
+    if (data["winner"]=="Draw"):
+        canvas.create_text(300, 50, text=" OUT OF MOVES", fill="black", font=('Helvetica 15 bold'))  
     canvas.pack()
     return None
 
