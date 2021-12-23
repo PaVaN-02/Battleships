@@ -32,6 +32,7 @@ def makeModel(data):
     data["num_ships"]= 5
     data["tempShip"]=[]
     data["userShips"]=0
+    data["winner"]=None
     data["compboard"]=emptyGrid(data["rows"],data["cols"])
     data["userboard"]=emptyGrid(data["rows"], data["cols"])
     data["compboard"]=addShips(data["compboard"],data["num_ships"])
@@ -46,6 +47,8 @@ def makeView(data, userCanvas, compCanvas):
     drawGrid(data, compCanvas,data["compboard"] ,False)
     drawGrid(data, userCanvas,data["userboard"], True)
     drawShip(data, userCanvas, data["tempShip"])
+    drawGameOver(data, userCanvas)
+    drawGameOver(data, compCanvas)
     return None
 
 '''
@@ -63,6 +66,8 @@ Parameters: dict mapping strs to values ; mouse event object ; 2D list of ints
 Returns: None
 '''
 def mousePressed(data, event, board):
+    if data["winner"]!=None:
+        return None
     rc = getClickedCell(data, event)
     if(board=="user"):
         clickUserBoard(data, rc[0], rc[1])
@@ -345,6 +350,8 @@ def updateBoard(data, board, row, col, player):
         board[row][col]=SHIP_CLICKED
     if (board[row][col]==EMPTY_UNCLICKED):    
         board[row][col]=EMPTY_CLICKED
+    if (isGameOver(board)==True):
+        data["winner"]=player
     return None
 
 
@@ -382,16 +389,24 @@ Parameters: 2D list of ints
 Returns: bool
 '''
 def isGameOver(board):
-    return
-
-
+    for i in range (len(board)):
+        for j in range(len(board[i])):
+            if board[i][j]== SHIP_UNCLICKED:
+                return False
+    return True
 '''
 drawGameOver(data, canvas)
 Parameters: dict mapping strs to values ; Tkinter canvas
 Returns: None
 '''
 def drawGameOver(data, canvas):
-    return
+    if (data["winner"]=="user"):
+        canvas.create_text(300, 50, text="Congratulations", fill="black", font=('Helvetica 15 bold'))
+ 
+    if (data["winner"]=="comp"):
+        canvas.create_text(300, 50, text=" YOU LOSE ", fill="black", font=('Helvetica 15 bold'))  
+    canvas.pack()
+    return None
 
 
 ### SIMULATION FRAMEWORK ###
@@ -462,6 +477,8 @@ if __name__ == "__main__":
     test.testShipIsValid()
     test.testUpdateBoard()
     test.testGetComputerGuess()
+    test.testIsGameOver()
+    test.testDrawGameOver()
 
 
     ## Finally, run the simulation to test it manually ##
