@@ -64,12 +64,10 @@ Returns: None
 '''
 def mousePressed(data, event, board):
     rc = getClickedCell(data, event)
-    row= rc[1]*data["cols"]*data["cell_size"]
-    col=rc[0]*data["rows"]*data["cell_size"]
     if(board=="user"):
-        clickUserBoard(data, row, col)
+        clickUserBoard(data, rc[0], rc[1])
     else:
-        runGameTurn(data, row, col)
+        runGameTurn(data, rc[0],rc[1])
 
 #### WEEK 1 ####
 
@@ -328,9 +326,7 @@ Returns: None
 def clickUserBoard(data, row, col):
     if(data["userShips"]==5):
         return None
-    i=(int)(col/(data["cols"]*data["cell_size"]))
-    j=(int)(row/(data["rows"]*data["cell_size"]))
-    t=[i,j]
+    t=[row,col]
     for k in range(len(data["tempShip"])):
       if (data["tempShip"][k]==t):
            return None
@@ -354,8 +350,7 @@ Returns: None
 def updateBoard(data, board, row, col, player):
     if (board[row][col]==SHIP_UNCLICKED):
         board[row][col]=SHIP_CLICKED
-    else:    
-   
+    if (board[row][col]==EMPTY_UNCLICKED):
         board[row][col]=EMPTY_CLICKED
     return None
 
@@ -366,10 +361,10 @@ Parameters: dict mapping strs to values ; int ; int
 Returns: None
 '''
 def runGameTurn(data, row, col):
-    if (data["compboard"][row][col] == SHIP_CLICKED|EMPTY_CLICKED):
+    if ((data["compboard"][row][col] == SHIP_CLICKED) or (data["compboard"][row][col] == EMPTY_CLICKED)):
       return  None
     else:
-        updateBoard(data, "compboard", row, col, "user")
+        updateBoard(data, data["compboard"], row, col, "user")
     return None
 
 
