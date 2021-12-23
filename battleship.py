@@ -180,13 +180,11 @@ def isVertical(ship):
         col.append(ship[i][1])
     count=0
     truecount=0
-    c=col[0]
     for i in range(1,len(ship)):
-        if(c==col[i]):
+        if(col[0]==col[i]):
            count=count+1
     if count==len(ship)-1:
        truecount=truecount+1  
- 
     row.sort()
     count=0
     for i in range (len(ship)-1):
@@ -213,13 +211,11 @@ def isHorizontal(ship):
         col.append(ship[i][1])
     count=0
     truecount=0
-    r=row[0]
     for i in range(1,len(ship)):
-        if(r==row[i]):
+        if(row[0]==row[i]):
            count=count+1
     if count==len(ship)-1:
        truecount=truecount+1  
- 
     col.sort()
     count=0
     for i in range (len(ship)-1):
@@ -268,7 +264,7 @@ Returns: bool
 def shipIsValid(grid, ship):
     v=isVertical(ship)
     h=isHorizontal(ship)
-    if(checkShip(grid,ship) and ((h)|(v)==True) and len(ship)==True):
+    if(checkShip(grid,ship) and ((h)|(v)==True) and len(ship)==3):
         return True
     return False
 
