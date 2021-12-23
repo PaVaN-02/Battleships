@@ -329,7 +329,7 @@ def clickUserBoard(data, row, col):
         placeShip(data)
     if(data["userShips"]==5):
         print("you can start the game")
-        data.update({data["userShips"]:0})
+        data["userShips"]=0
     return None
 
 
