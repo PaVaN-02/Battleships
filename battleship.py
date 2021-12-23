@@ -299,6 +299,8 @@ def placeShip(data):
            col=data["tempShip"][i][1]
            data["userboard"][row][col]=SHIP_UNCLICKED
         data["userShips"]=data["userShips"]+1
+    else:
+        print("ship is not valid")
     data["tempShip"]=[]
     return None
 
