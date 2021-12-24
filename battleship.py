@@ -409,14 +409,14 @@ Returns: None
 '''
 def drawGameOver(data, canvas):
     if (data["winner"]=="user"):
-        canvas.create_text(250, 150, text="CONGRATULATIONS", fill="gold", font=('italic 30 bold'))
-        canvas.create_text(250, 250, text="PRESS ENTER IF U WANT TO PLAY GAME AGAIN", fill="black", font=('italic 15 bold'))
+        canvas.create_text(250, 150, text="CONGRATULATIONS!", fill="gold", font=('italic 30 bold'))
+        canvas.create_text(250, 250, text="PRESS ENTER TO REPLAY", fill="black", font=('italic 15 bold'))
     if (data["winner"]=="comp"):
-        canvas.create_text(250, 150, text=" YOU LOSE ", fill="brown", font=('italic 30 bold'))
-        canvas.create_text(250, 250, text="PRESS ENTER IF U WANT TO PLAY GAME AGAIN", fill="black", font=('italic 15 bold'))
+        canvas.create_text(250, 150, text="YOU LOST!", fill="brown", font=('italic 30 bold'))
+        canvas.create_text(250, 250, text="PRESS ENTER TO REPLAY", fill="black", font=('italic 15 bold'))
     if (data["winner"]=="Draw"):
-        canvas.create_text(250, 150, text=" OUT OF MOVES", fill="silver", font=('italic 30 bold'))
-        canvas.create_text(250, 250, text="PRESS ENTER IF U WANT TO PLAY GAME AGAIN", fill="black", font=('italic 15 bold')) 
+        canvas.create_text(250, 150, text="OUT OF MOVES!", fill="silver", font=('italic 30 bold'))
+        canvas.create_text(250, 250, text="PRESS ENTER TO REPLAY", fill="black", font=('italic 15 bold')) 
     canvas.pack()
     return None
 
