@@ -33,7 +33,7 @@ def makeModel(data):
     data["tempShip"]=[]
     data["userShips"]=0
     data["winner"]=None
-    data["maxturns"]=100
+    data["maxturns"]=50
     data["currentturns"]=0
     data["compboard"]=emptyGrid(data["rows"],data["cols"])
     data["userboard"]=emptyGrid(data["rows"], data["cols"])
@@ -50,7 +50,7 @@ def makeView(data, userCanvas, compCanvas):
     drawGrid(data, userCanvas,data["userboard"], True)
     drawShip(data, userCanvas, data["tempShip"])
     drawGameOver(data, userCanvas)
-    drawGameOver(data, compCanvas)
+    # drawGameOver(data, compCanvas)
     return None
 
 '''
@@ -269,8 +269,7 @@ drawShip(data, canvas, ship)
 Parameters: dict mapping strs to values ; Tkinter canvas; 2D list of ints
 Returns: None
 '''
-def drawShip(data, canvas, ship):
-    print(ship)     
+def drawShip(data, canvas, ship):     
     for i in range(len(ship)):
         x=ship[i][0]
         y=ship[i][1]
@@ -284,23 +283,9 @@ Parameters: 2D list of ints ; 2D list of ints
 Returns: bool
 '''
 def shipIsValid(grid, ship):
-    flag=count=0
-    if(len(ship)==3):
-        flag=flag+1
     v=isVertical(ship)
     h=isHorizontal(ship)
- 
-    if(checkShip(grid,ship)&((h)|(v)==True)):
-        flag=flag+1
- 
-    for i in range (len(ship)):
-      row=ship[i][0]
-      col=ship[i][1]
-      if(grid[row][col]!=SHIP_UNCLICKED):
-           count=count+1
-    if (count==len(ship)):
-        flag=flag+1
-    if(flag==3):
+    if(checkShip(grid,ship) and ((h)|(v)==True) and len(ship)==3):
         return True
     return False
 
@@ -408,13 +393,14 @@ Parameters: dict mapping strs to values ; Tkinter canvas
 Returns: None
 '''
 def drawGameOver(data, canvas):
+    print(data["winner"])
     if (data["winner"]=="user"):
         canvas.create_text(250, 150, text="CONGRATULATIONS!", fill="gold", font=('italic 30 bold'))
         canvas.create_text(250, 250, text="PRESS ENTER TO REPLAY", fill="black", font=('italic 15 bold'))
-    if (data["winner"]=="comp"):
-        canvas.create_text(250, 150, text="YOU LOST!", fill="brown", font=('italic 30 bold'))
+    elif (data["winner"]=="comp"):
+        canvas.create_text(250, 150, text="YOU LOST", fill="brown", font=('italic 30 bold'))
         canvas.create_text(250, 250, text="PRESS ENTER TO REPLAY", fill="black", font=('italic 15 bold'))
-    if (data["winner"]=="Draw"):
+    elif (data["winner"]=="Draw"):
         canvas.create_text(250, 150, text="OUT OF MOVES!", fill="silver", font=('italic 30 bold'))
         canvas.create_text(250, 250, text="PRESS ENTER TO REPLAY", fill="black", font=('italic 15 bold')) 
     canvas.pack()
