@@ -281,23 +281,9 @@ Parameters: 2D list of ints ; 2D list of ints
 Returns: bool
 '''
 def shipIsValid(grid, ship):
-    flag=count=0
-    if(len(ship)==3):
-        flag=flag+1
     v=isVertical(ship)
     h=isHorizontal(ship)
- 
-    if(checkShip(grid,ship)&((h)|(v)==True)):
-        flag=flag+1
- 
-    for i in range (len(ship)):
-      row=ship[i][0]
-      col=ship[i][1]
-      if(grid[row][col]!=SHIP_UNCLICKED):
-           count=count+1
-    if (count==len(ship)):
-        flag=flag+1
-    if(flag==3):
+    if(checkShip(grid,ship) and ((h)|(v)==True) and len(ship)==3):
         return True
     return False
 
