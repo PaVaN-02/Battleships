@@ -317,6 +317,8 @@ def placeShip(data):
            col=data["tempShip"][i][1]
            data["userboard"][row][col]=SHIP_UNCLICKED
         data["userShips"]=data["userShips"]+1
+    else:
+        print("ship is not valid")
     data["tempShip"]=[]
     return None
 
@@ -327,7 +329,7 @@ Parameters: dict mapping strs to values ; int ; int
 Returns: None
 '''
 def clickUserBoard(data, row, col):
-    if(data["userShips"]==5):
+    if(data["userShips"]==data["num_ships"]):
         return None
     t=[row,col]
     for k in range(len(data["tempShip"])):
@@ -337,9 +339,8 @@ def clickUserBoard(data, row, col):
  
     if(len(data["tempShip"])==3):
         placeShip(data)
-    if(data["userShips"]==5):
+    if(data["userShips"]==data["num_ships"]):
         print("you can start the game")
-        data["userShips"]=0
     return None
 
 
@@ -408,14 +409,14 @@ Returns: None
 '''
 def drawGameOver(data, canvas):
     if (data["winner"]=="user"):
-        canvas.create_text(250, 150, text="CONGRATULATIONS", fill="black", font=('italic 30 bold'))
-        canvas.create_text(250, 250, text="PRESS ENTER IF U WANT TO PLAY GAME AGAIN", fill="gold", font=('italic 15 bold'))
+        canvas.create_text(250, 150, text="CONGRATULATIONS", fill="gold", font=('italic 30 bold'))
+        canvas.create_text(250, 250, text="PRESS ENTER IF U WANT TO PLAY GAME AGAIN", fill="black", font=('italic 15 bold'))
     if (data["winner"]=="comp"):
-        canvas.create_text(250, 150, text=" YOU LOSE ", fill="black", font=('italic 30 bold'))
-        canvas.create_text(250, 250, text="PRESS ENTER IF U WANT TO PLAY GAME AGAIN", fill="gold", font=('italic 15 bold'))
+        canvas.create_text(250, 150, text=" YOU LOSE ", fill="brown", font=('italic 30 bold'))
+        canvas.create_text(250, 250, text="PRESS ENTER IF U WANT TO PLAY GAME AGAIN", fill="black", font=('italic 15 bold'))
     if (data["winner"]=="Draw"):
-        canvas.create_text(250, 150, text=" OUT OF MOVES", fill="black", font=('italic 30 bold'))
-        canvas.create_text(250, 250, text="PRESS ENTER IF U WANT TO PLAY GAME AGAIN", fill="gold", font=('italic 15 bold')) 
+        canvas.create_text(250, 150, text=" OUT OF MOVES", fill="silver", font=('italic 30 bold'))
+        canvas.create_text(250, 250, text="PRESS ENTER IF U WANT TO PLAY GAME AGAIN", fill="black", font=('italic 15 bold')) 
     canvas.pack()
     return None
 
